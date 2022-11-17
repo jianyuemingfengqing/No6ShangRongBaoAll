@@ -87,3 +87,4 @@ let obj5 = {...obj4}
 obj5.username = 'daweige'
 console.log(obj4)
 console.log(obj5)
+
