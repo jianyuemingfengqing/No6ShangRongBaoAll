@@ -50,11 +50,11 @@ console.log(sum(1,''))// '1'  字符串拼接
 console.log(sum(1,undefined))*/
 
 // 对象
-let username = 'Tom'
+/*let username = 'Tom'
 let age = 2
 let sing = function () {
     console.log('I love Jerry')
-}
+}*/
 /*// 传统
 let person1 = {
     username: username,
@@ -73,7 +73,7 @@ let person2 = {
 console.log(person2)
 person2.sing()*/
 
-//对象拷贝: 引用传递  修改一个对象的属性值 另一个对象的属性值也改变了
+/*//对象拷贝: 引用传递  修改一个对象的属性值 另一个对象的属性值也改变了
 let obj3 = {
     username
 }
@@ -86,5 +86,47 @@ console.log(obj4)
 let obj5 = {...obj4}
 obj5.username = 'daweige'
 console.log(obj4)
-console.log(obj5)
+console.log(obj5)*/
 
+// 解构赋值
+/*
+// 数组解构
+let arr = ['xf',12,44,true];
+
+let [a,b,c,d] = arr;
+console.log(a,b,c,d);
+*/
+/*
+// 对象解构
+let obj = {
+    username: '益丰',
+    age: 39,
+    info() {
+        console.log('影帝desu');
+    }
+};
+
+let {
+    username, age, info, salary = 500000
+} = obj;
+
+console.log(username, age, info, salary);*/
+
+// 函数解构
+
+function conn({
+                  host,
+                  username,
+                  password,
+                  schema,
+                  port = 6379
+              }) {
+    console.log(host, port, username, password)
+}
+
+conn({
+    host: '192.168.1.170',
+    username: 'root',
+    password: '123456',
+    schema: 'redis://'
+})
