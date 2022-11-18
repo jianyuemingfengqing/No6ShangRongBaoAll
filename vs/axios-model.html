@@ -12,13 +12,35 @@
                 timeout: 5000,
             });
             const r = request({
-               url: '/user/list',
-               method: 'GET',
+                url: '/user/list',
+                method: 'GET',
             });
-
-            r.then((response) =>{
+            //配置请求响应拦截器：
+            //请求拦截器 在请求报文中添加token
+            request.interceptors.request.use(
+                function (config) {
+                    // 在发送请求之前做些什么，例如：在请求头中携带一个令牌
+                    config.headers.token = "helen123456";
+                    return config;
+                },
+                function (error) {
+                    // 对请求错误做些什么
+                    return Promise.reject(error);
+                }
+            );
+            //响应拦截器：如果响应成功将响应体内容获取 放行给后面的业务
+            request.interceptors.response.use(
+                function (response) {
+                    // 对响应数据做点什么，例如：使用response.data替代response，简化前端拿到的数据结果
+                    return response.data;
+                },
+                function (error) {
+                    // 对响应错误做点什么
+                    return Promise.reject(error);
+                });
+            r.then((response) => {
                 console.log(response.data)
-            }).catch((error) =>{
+            }).catch((error) => {
 
             })
         </script>

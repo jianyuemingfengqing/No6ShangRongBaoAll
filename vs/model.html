@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+    <head>
+        <meta charset="UTF-8">
+        <title>模块化</title>
+    </head>
+    <body>
+        <script type="module">
+            import a from "./module1/a.js";
+            import b from "./module2/b2.js"
+            import c from "./module2/b.js"
+
+            console.log(a.a);
+            console.log(b.a);
+            b.info();
+            console.log(c.star);
+            c.sing();
+        </script>
+    </body>
+</html>
