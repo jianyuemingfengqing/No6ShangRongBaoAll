@@ -111,7 +111,7 @@ let {
 } = obj;
 
 console.log(username, age, info, salary);*/
-
+/*
 // 函数解构
 
 function conn({
@@ -129,4 +129,39 @@ conn({
     username: 'root',
     password: '123456',
     schema: 'redis://'
+})*/
+
+// 箭头函数
+/*
+let arr = [123, 1, 525, 45, 54, 5, 87, 64];
+arr.sort(
+    (a, b) => {
+        b - a
+    }
+);
+
+console.log(arr);*/
+/*// 遍历
+let arr = [123, 1, 525, 45, 54, 5, 87, 64];
+arr.forEach(
+    (a,index)=>{
+        console.log(a,index)
+    }
+)*/
+
+// promise
+const fs = require('fs');
+let p = new Promise((resolve, reject) => {
+    fs.readFile('./nodetest.js', function (err, data) {
+        if (err) {
+            return reject(err);
+        }
+        resolve(data);
+    })
+})
+
+p.then(response => {
+    console.log('执行成功' + response);
+}).catch((err) => {
+    console.log('出现异常' + err);
 })

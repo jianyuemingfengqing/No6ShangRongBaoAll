@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+    <head>
+        <meta charset="UTF-8">
+        <title>模块化</title>
+        <script type="text/javascript" src="js/axios.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            const request = axios.create({
+                baseURL: 'http://localhost:10086',
+                timeout: 5000,
+            });
+            const r = request({
+               url: '/user/list',
+               method: 'GET',
+            });
+
+            r.then((response) =>{
+                console.log(response.data)
+            }).catch((error) =>{
+
+            })
+        </script>
+    </body>
+</html>
