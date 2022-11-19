@@ -12,27 +12,52 @@
                         <br>
                         <img src="img/1.gif" v-if="flag">
                         <img src="img/2.jpg" v-else>-->
-            <!--            计算属性-->
+            <!--                        计算属性
 
-            <!--            {{rev()}}-->
-            {{rev}}
+                                    {{rev()}}
+                        {{rev}}-->
+            <input type="text" v-model="message">
+            <div v-for="(item,index) in list" v-text="item"></div>
         </div>
         <script>
             const vm = new Vue({
                 el: '#app',
                 data: {
                     flag: false,
-                    message: '些许风霜',
+                    // message: '些许风霜',
+                    message: '',
+                    list:[
+                        "1121312",
+                        "2223234",
+                        "234251",
+                        "qwr4214152124",
+                        "33333333333",
+                    ],
                 },
-                computed: {
-                    rev() {
-                        return this.message.split('').reverse().join('') + new Date();
-                    }
-                },
+                /*          computed: {  计算
+                              rev() {
+                                  return this.message.split('').reverse().join('') + new Date();
+                              }
+                          },*/
                 methods: {
                     /*     rev() {
                              return this.message.split('').reverse().join('');
                          }*/
+                },
+                watch: {
+                    message(val){
+                        // console.log(this.message, val);
+                        let newList = new Array();
+                        // console.log(this.msg, val);
+                        //对list集合中的数据进行过滤
+                        this.list.forEach((str) => {
+                            //如果str中包含输入的字符串则保留
+                            if (str.indexOf(val) >= 0) {
+                                newList.push(str);
+                            }
+                        });
+                        this.list = newList;
+                    }
                 }
             });
         </script>
