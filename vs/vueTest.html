@@ -7,16 +7,26 @@
     </head>
     <body>
         <div id="app">
-            <input type="checkbox" v-model="flag">
-            <br>
-            <img src="img/1.gif" v-if="flag">
-            <img src="img/2.jpg" v-else>
+            <!--     <!--       数据绑定&ndash;&gt;
+                        <input type="checkbox" v-model="flag">
+                        <br>
+                        <img src="img/1.gif" v-if="flag">
+                        <img src="img/2.jpg" v-else>-->
+            <!--            计算属性-->
+
+            {{rev()}}
         </div>
         <script>
             const vm = new Vue({
                 el: '#app',
                 data: {
                     flag: false,
+                    message: '些许风霜',
+                },
+                methods: {
+                    rev() {
+                        return this.message.split('').reverse().join('');
+                    }
                 }
             });
         </script>
