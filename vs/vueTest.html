@@ -14,7 +14,8 @@
                         <img src="img/2.jpg" v-else>-->
             <!--            计算属性-->
 
-            {{rev()}}
+            <!--            {{rev()}}-->
+            {{rev}}
         </div>
         <script>
             const vm = new Vue({
@@ -23,10 +24,15 @@
                     flag: false,
                     message: '些许风霜',
                 },
-                methods: {
+                computed: {
                     rev() {
-                        return this.message.split('').reverse().join('');
+                        return this.message.split('').reverse().join('') + new Date();
                     }
+                },
+                methods: {
+                    /*     rev() {
+                             return this.message.split('').reverse().join('');
+                         }*/
                 }
             });
         </script>
