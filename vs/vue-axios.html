@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script type="text/javascript" src="js/axios.js"></script>
+        <script type="text/javascript" src="js/vue.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="js/element-ui/lib/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="js/element-ui/lib/index.js"></script>
+        <style rel="stylesheet">
+            .el-table .warning-row {
+                background: oldlace;
+            }
+
+            .el-table .success-row {
+                background: #f0f9eb;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <!--            <table>
+                            <tr v-for="(user,index) in users">
+                                <td v-text="user.name"></td>
+                                <td v-text="user.age"></td>
+                                <td v-text="user.email"></td>
+                                <td v-text="user.creatTime"></td>
+                                <td v-text="user.updateTime"></td>
+                            </tr>
+                        </table>-->
+
+            <el-table
+                    :data="users"
+                    style="width: 100%"
+                    :row-class-name="tableRowClassName">
+                <el-table-column
+                        prop="name"
+                        label="姓名"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="age"
+                        label="年龄">
+                </el-table-column>
+                <el-table-column
+                        prop="email"
+                        label="邮箱">
+                </el-table-column>
+                <el-table-column
+                        prop="creatTime"
+                        label="创建日期"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="updateTime"
+                        label="更新日期"
+                        width="180">
+                </el-table-column>
+            </el-table>
+        </div>
+        <script>
+            const vm = new Vue({
+                el: '#app',
+                data: {
+                    users: [],
+                },
+                created() {
+                    this.getUsers();
+                },
+                methods: {
+                    getUsers() {
+                        axios({
+                            url: 'http://localhost:10086/user/list',
+                            method: 'GET',
+                        }).then(response => {
+                            console.log(response);
+                            this.users = response.data;
+                        }).catch(error => {
+
+                        })
+                    },
+                    tableRowClassName({row, rowIndex}) {
+                        if (rowIndex === 1) {
+                            return 'warning-row';
+                        } else if (rowIndex === 3) {
+                            return 'success-row';
+                        }
+                        return '';
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
