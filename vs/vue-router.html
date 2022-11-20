@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="js/vue.js"></script>
+        <script src="js/vue-router.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <router-link to="/home">首页</router-link>
+            <router-link to="/user">个人中心</router-link>
+            <router-link to="/invest">投资列表</router-link>
+
+            <router-view></router-view>
+        </div>
+        <script type="text/javascript">
+            let routes = [
+                {
+                    path: '/',
+                    redirect: "/user"
+                },
+                {
+                    path: '/home',
+                    component: {template: "<h3>欢迎访问首页</h3>"}
+                },
+                {
+                    path: '/user',
+                    component: {template: "<h3>欢迎访问个人中心</h3>"}
+                },
+                {
+                    path: '/invest',
+                    component: {template: "<h3>欢迎访问投资列表</h3>"}
+                },
+            ];
+            let router = new VueRouter({
+                routes
+            });
+            const vm = new Vue({
+                el: '#app',
+                data: {},
+                router
+            });
+        </script>
+    </body>
+</html>

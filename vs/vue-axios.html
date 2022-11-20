@@ -59,12 +59,27 @@
                         width="180">
                 </el-table-column>
             </el-table>
+
+            <div style="text-align: center">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[1, 2, 3, 4]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </div>
         </div>
         <script>
             const vm = new Vue({
                 el: '#app',
                 data: {
                     users: [],
+                    currentPage: 1,
+                    pageSize: 3,
+                    total: 3
                 },
                 created() {
                     this.getUsers();
@@ -74,9 +89,14 @@
                         axios({
                             url: 'http://localhost:10086/user/list',
                             method: 'GET',
+                            params: {
+                                pageNum: this.currentPage,
+                                pageSize: this.pageSize
+                            },
                         }).then(response => {
                             console.log(response);
-                            this.users = response.data;
+                            this.users = response.data.records;
+                            this.total = response.data.total;
                         }).catch(error => {
 
                         })
@@ -88,6 +108,17 @@
                             return 'success-row';
                         }
                         return '';
+                    },
+                    handleSizeChange(val) {
+                        console.log(`每页 ${val} 条`);
+                        // 点击时 调用方法 重新查询
+                        this.pageSize = val;
+                        this.getUsers();
+                    },
+                    handleCurrentChange(val) {
+                        console.log(`当前页: ${val}`);
+                        this.currentPage = val;
+                        this.getUsers();
                     }
                 }
             });
