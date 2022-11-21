@@ -9,7 +9,7 @@ export default {
   },
   delete(id) {
     return request({
-      url: '/admin/integralGrade'+ id,
+      url: '/admin/integralGrade/'+ id,
       method: 'delete'
     })
   }

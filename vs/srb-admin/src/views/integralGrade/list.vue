@@ -1,5 +1,8 @@
 <template>
   <div>
+
+    <el-button type="danger">删除所有</el-button>
+    <el-button type="success">一键恢复</el-button>
     <el-table
       :data="userList"
       style="width: 100%"
@@ -51,51 +54,70 @@
 </template>
 
 <script>
-import integralGrade from "@/api/integral-grade";
+  import integralGrade from "@/api/integral-grade";
 
-export default {
-  data() {
-    return {
-      userList: [],
-    }
-  },
-  created() {
-    integralGrade.getAll().then(response => {
-      console.log(response);
-      this.userList = response.data.items;
-    });
-  },
-  methods: {
-    tableRowClassName({row, rowIndex}) {
-      console.log(row);
-      console.log(rowIndex);
-      if (rowIndex % 2 === 0) {
-        return 'warning-row';
-      } else if (rowIndex === 3) {
-        return 'success-row';
+  export default {
+    data() {
+      return {
+        userList: [],
       }
-      return '';
     },
-    handleSelectionChange(val) {
-      console.log(val);
-      this.multipleSelection = val;
+    created() {
+      this.initData();
     },
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
+    methods: {
+      initData() {
+        integralGrade.getAll().then(response => {
+          console.log(response);
+          this.userList = response.data.items;
+        });
+      },
+      tableRowClassName({row, rowIndex}) {
+        console.log(row);
+        console.log(rowIndex);
+        if (rowIndex % 2 === 0) {
+          return 'warning-row';
+        } else if (rowIndex === 3) {
+          return 'success-row';
+        }
+        return '';
+      },
+      handleSelectionChange(val) {
+        console.log(val);
+        this.multipleSelection = val;
+      },
+      handleEdit(index, row) {
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
+
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          integralGrade.delete(row.id).then(response => {
+            this.$message.success("删除成功");
+            this.initData();
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      }
     }
   }
-}
 </script>
 
 <style scoped>
-.el-table .warning-row {
-  background: oldlace;
-}
+  .el-table .warning-row {
+    background: oldlace;
+  }
 
-.el-table .success-row {
-  background: #f0f9eb;
-}
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
 </style>
