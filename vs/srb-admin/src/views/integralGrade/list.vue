@@ -1,8 +1,8 @@
 <template>
   <div>
 
-    <el-button type="danger">删除所有</el-button>
-    <el-button type="success">一键恢复</el-button>
+    <el-button type="danger" @click="batchDel">批量删除</el-button>
+    <el-button type="success" @click="regain">一键恢复</el-button>
     <el-table
       :data="userList"
       style="width: 100%"
@@ -60,6 +60,7 @@
     data() {
       return {
         userList: [],
+        multipleSelection: null
       }
     },
     created() {
@@ -107,6 +108,38 @@
             message: '已取消删除'
           });
         });
+      },
+      regain() {
+        integralGrade.regain().then(response => {
+          this.initData();
+        })
+      },
+      batchDel() {
+        if (this.multipleSelection === 0 || !this.multipleSelection) {
+          this.$message.warning("请选择");
+        }
+        let arr = [];
+        this.multipleSelection.forEach(row => {
+          arr.push(row.id);
+        })
+        let ids = arr.join(',');
+        integralGrade.batchDel(ids).then(response => {
+          this.$message.success('删除成功');
+          this.initData();
+        })
+        /*this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });*/
+
       }
     }
   }
