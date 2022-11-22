@@ -25,5 +25,12 @@ export default {
       method: 'delete',
       params: {id: ids}
     })
+  },
+  save(item){
+    return request({
+      url: '/admin/integralGrade',
+      method: 'post',
+      data: item
+    })
   }
 }

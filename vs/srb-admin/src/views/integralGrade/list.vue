@@ -69,13 +69,13 @@
     methods: {
       initData() {
         integralGrade.getAll().then(response => {
-          console.log(response);
+          // console.log(response);
           this.userList = response.data.items;
         });
       },
       tableRowClassName({row, rowIndex}) {
-        console.log(row);
-        console.log(rowIndex);
+        /*console.log(row);
+        console.log(rowIndex);*/
         if (rowIndex % 2 === 0) {
           return 'warning-row';
         } else if (rowIndex === 3) {
@@ -84,14 +84,14 @@
         return '';
       },
       handleSelectionChange(val) {
-        console.log(val);
+        // console.log(val);
         this.multipleSelection = val;
       },
       handleEdit(index, row) {
-        console.log(index, row);
+        // console.log(index, row);
       },
       handleDelete(index, row) {
-        console.log(index, row);
+        // console.log(index, row);
 
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -127,19 +127,6 @@
           this.$message.success('删除成功');
           this.initData();
         })
-        /*this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });*/
-
       }
     }
   }
