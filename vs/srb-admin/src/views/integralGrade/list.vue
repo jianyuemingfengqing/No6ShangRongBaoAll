@@ -89,7 +89,7 @@
       },
       handleEdit(index, row) {
         // console.log(index, row);
-        this.$router.push('/integralGrade/edit')
+        this.$router.push(`/integralGrade/edit/${row.id}`)
       },
       handleDelete(index, row) {
         // console.log(index, row);

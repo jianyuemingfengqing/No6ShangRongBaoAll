@@ -76,10 +76,10 @@ export const constantRoutes = [
         meta: { title: '新增积分等级', icon: 'form' }
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
         name: 'IntegralGradeEdit',
         component: () => import('@/views/integralGrade/form'),
-        meta: { title: '编辑积分等级', icon: 'form' },
+        meta: { title: '更新积分等级', icon: 'form' },
         hidden: true
       }
     ]
