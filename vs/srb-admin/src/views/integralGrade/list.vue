@@ -49,6 +49,17 @@
         </template>
       </el-table-column>
     </el-table>
+    <div style="text-align: center">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[1, 2, 3, 4]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
   </div>
 
 </template>
@@ -60,7 +71,10 @@
     data() {
       return {
         userList: [],
-        multipleSelection: null
+        multipleSelection: null,
+        currentPage: 1,
+        pageSize: 3,
+        total: 3
       }
     },
     created() {
@@ -68,9 +82,17 @@
     },
     methods: {
       initData() {
-        integralGrade.getAll().then(response => {
-          // console.log(response);
-          this.userList = response.data.items;
+        /*       integralGrade.getAll().then(response => {
+                 // console.log(response);
+                 this.userList = response.data.items;
+               });*/
+        let pageNum = this.currentPage;
+        let pageSize = this.pageSize;
+        integralGrade.getPage(pageNum,pageSize).then(response => {
+          console.log(response);
+          // this.userList = response.data.items;
+          this.userList = response.data.items.records;
+          this.total = response.data.items.total;
         });
       },
       tableRowClassName({row, rowIndex}) {
@@ -128,6 +150,17 @@
           this.$message.success('删除成功');
           this.initData();
         })
+      },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+        // 点击时 调用方法 重新查询
+        this.pageSize = val;
+        this.initData();
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+        this.currentPage = val;
+        this.initData();
       }
     }
   }

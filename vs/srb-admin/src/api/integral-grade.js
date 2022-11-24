@@ -7,6 +7,16 @@ export default {
       method: 'get'
     })
   },
+  getPage(currentPage,pageSize) {
+    return request({
+      url: '/admin/core/integralGrade/page',
+      method: 'get',
+      params: {
+        pageNum: currentPage,
+        pageSize: pageSize
+      }
+    })
+  },
   delete(id) {
     return request({
       url: '/admin/core/integralGrade/' + id,

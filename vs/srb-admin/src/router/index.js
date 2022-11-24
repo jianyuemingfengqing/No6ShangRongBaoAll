@@ -84,18 +84,24 @@ export const constantRoutes = [
       }
     ]
   },
-
-
-
   {
-    path: '/form',
+    path: '/dict',
     component: Layout,
+    redirect: '/dict/list',
+    name: 'Dict',
+    meta: { title: '系统设置', icon: 'el-icon-setting'},
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: 'list',
+        name: 'DictList',
+        component: () => import('@/views/dict/list'),
+        meta: { title: '数据字典', icon: 'el-icon-setting' }
+      },
+      {
+        path: 'test',
+        name: 'DictTest',
+        component: () => import('@/views/dict/list'),
+        meta: { title: '测试', icon: 'el-icon-setting' }
       }
     ]
   }
