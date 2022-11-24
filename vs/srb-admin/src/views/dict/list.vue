@@ -27,8 +27,12 @@
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
       <el-table-column
         prop="name"
-        label="姓名"
+        label="名称"
         width="180">
+      </el-table-column>
+      <el-table-column
+        prop="dictCode"
+        label="编码">
       </el-table-column>
       <el-table-column
         prop="value"
@@ -77,21 +81,11 @@
         })
       },
       load(tree, treeNode, resolve) {
-        setTimeout(() => {
-          resolve([
-            {
-              id: 31,
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-              id: 32,
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }
-          ])
-        }, 1000)
+        dict.getDictByPid(tree.id).then(response => {
+          resolve(
+            response.data.items
+          )
+        })
       }
     }
   }
