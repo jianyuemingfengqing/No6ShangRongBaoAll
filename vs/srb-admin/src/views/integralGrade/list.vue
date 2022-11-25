@@ -89,19 +89,18 @@
         let pageNum = this.currentPage;
         let pageSize = this.pageSize;
         integralGrade.getPage(pageNum,pageSize).then(response => {
-          console.log(response);
+          // console.log(response);
           // this.userList = response.data.items;
           this.userList = response.data.items.records;
           this.total = response.data.items.total;
         });
       },
       tableRowClassName({row, rowIndex}) {
-        /*console.log(row);
-        console.log(rowIndex);*/
-        if (rowIndex % 2 === 0) {
-          return 'warning-row';
-        } else if (rowIndex === 3) {
+        console.log(rowIndex)
+        if (rowIndex %2 === 0) {
           return 'success-row';
+        } else if (rowIndex %2 !== 0) {
+          return 'warning-row';
         }
         return '';
       },
@@ -152,13 +151,13 @@
         })
       },
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+        // console.log(`每页 ${val} 条`);
         // 点击时 调用方法 重新查询
         this.pageSize = val;
         this.initData();
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+        // console.log(`当前页: ${val}`);
         this.currentPage = val;
         this.initData();
       }
@@ -166,7 +165,7 @@
   }
 </script>
 
-<style scoped>
+<style >
   .el-table .warning-row {
     background: oldlace;
   }
