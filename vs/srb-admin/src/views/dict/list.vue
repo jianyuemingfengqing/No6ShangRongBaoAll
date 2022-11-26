@@ -88,7 +88,7 @@
         this.disabled = true
       },
       exportData() {
-        window.location.href = this.exportPath
+        window.location.href = this.exportPath 
       },
       getDictList(id) {
         dict.getDictByPid(id).then(response => {
