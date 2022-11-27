@@ -65,7 +65,7 @@
     data() {
       return {
         disabled: false,
-        BASE_API: 'http://192.168.144.130',
+        BASE_API: 'http://192.168.144.128',
         uploadPath: this.BASE_API + '/admin/core/dict/import',
         exportPath: this.BASE_API + '/admin/core/dict/import',
         dictList: [],
@@ -88,7 +88,7 @@
         this.disabled = true
       },
       exportData() {
-        window.location.href = this.exportPath 
+        window.location.href = this.exportPath
       },
       getDictList(id) {
         dict.getDictByPid(id).then(response => {
