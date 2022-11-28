@@ -96,6 +96,10 @@ export default {
   methods: {
     //发短信
     send() {
+		    this.$axios.$get(`/api/sms/sendMsg/${this.userInfo.mobile}/0`).then(response => {
+				    console.log(response);
+						this.$message.success("发送成功");
+		    });
 
     },
 
