@@ -34,12 +34,12 @@ module.exports = {
   ],
 
   env: {
-    BASE_API: 'http://192.168.144.128',
+    BASE_API: 'http://192.168.176.128',
   },
 
   axios: {
     // Axios options here
-    baseURL: 'http://192.168.144.128',
+    baseURL: 'http://192.168.176.128',
   },
 
   plugins: [
