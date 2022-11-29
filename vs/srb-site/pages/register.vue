@@ -115,20 +115,28 @@
 
 								this.timer = setInterval(() => {
 										this.leftSecond--;
-										if (this.leftSecond <= 0){
+										if (this.leftSecond <= 0) {
 												this.sending = false;
 												this.leftSecond = 0;
-												clearInterval(this.timer)
+												clearInterval(this.timer) //结束定时任务
 										}
-								},1000)
+								}, 1000)
 						},
-						destroy(){
-							if (this.timer){
-									clearInterval(this.timer)
-							}
+						destroy() {
+								if (this.timer) {
+										clearInterval(this.timer)
+								}
 						},
 						//注册
 						register() {
+								this.flag = true; //注册按钮点击后禁用提交按钮防止表单重复提交
+								this.$axios.$post(
+									"/api/core/userInfo/register",
+												this.userInfo
+								).then(response => {
+										this.$message.success("注册成功");
+										this.$router.push("/login")
+								})
 						},
 				},
 		}
