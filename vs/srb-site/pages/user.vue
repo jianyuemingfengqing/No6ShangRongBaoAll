@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import '~/assets/css/user.css'
-import InvestorNav from '~/components/InvestorNav'
-import BorrowerNav from '~/components/BorrowerNav'
-import cookie from 'js-cookie'
+import "~/assets/css/user.css";
+import InvestorNav from "~/components/InvestorNav";
+import BorrowerNav from "~/components/BorrowerNav";
+import cookie from "js-cookie";
 
 export default {
   components: {
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       userType: 0,
-    }
+    };
   },
 
   mounted() {
@@ -39,13 +39,13 @@ export default {
     //   userInfo = JSON.parse(userInfo)
     //   this.userType = userInfo.userType
     // }
-		  setTimeout(() => {
-				  let json = localStorage.getItem("userInfo");
-				  if (json) {
-						  let userInfo = JSON.parse(json);
-						  this.userType = userInfo.userType;
-				  }
-		  }, 200);
+    setTimeout(() => {
+      let json = localStorage.getItem("userInfo");
+      if (json) {
+        let userInfo = JSON.parse(json);
+        this.userType = userInfo.userType;
+      }
+    }, 200);
   },
-}
+};
 </script>

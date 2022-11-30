@@ -38,7 +38,7 @@ module.exports = {
   },
 
   axios: {
-    // Axios options here
+    // Axios options here   异步请求访问的是虚拟机中的nginx
     baseURL: 'http://192.168.176.128',
   },
 
