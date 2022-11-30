@@ -49,10 +49,14 @@
 				methods: {
 						//登录
 						login() {
-								this.$axios.$post("/api/core/userInfo", this.userInfo).then(response => {
+								this.$axios.$post("/api/core/userInfo/login", this.userInfo).then(response => {
 										console.log(response.data.token);
+										// 使用token
+										localStorage.setItem("SRB_TOKEN", response.data.token);
+										//设置cookie到浏览器中缓存 过期时间为7天   不设置过期时间默认存在浏览器运存中
+										// cookie.set("SRB_TOKEN", response.data.token, {expires: 7, path: "/"})
 										this.$message.success("登录成功");
-										this.$router.push("/user");
+										window.location = "/user";
 								})
 						},
 				},
