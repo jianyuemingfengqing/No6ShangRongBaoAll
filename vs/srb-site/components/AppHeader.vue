@@ -110,7 +110,7 @@
 </template>
 <script>
 import "~/assets/font/iconfont.css";
-import cookie from "js-cookie";
+// import cookie from "js-cookie";
 
 export default {
   data() {
