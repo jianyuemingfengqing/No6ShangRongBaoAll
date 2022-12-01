@@ -14,7 +14,6 @@ export default{
     return request({
       url:`/admin/core/userInfo/updateStatus/${id}/${status}`,
       method:'PUT'
-
     })
 
   },
@@ -22,7 +21,6 @@ export default{
     return request({
       url:`/admin/core/userLoginRecord/getLoginRecords/${userId}`,
       method:'GET'
-
     })
   }
 }
