@@ -10,9 +10,9 @@
             <span>
               <img
                 :src="userIndexVO.headImg"
-                style="width:88px;height:88px;z-index:0;"
+                style="width: 88px; height: 88px; z-index: 0"
               />
-              <i class="headframe" style="z-index:0;"></i>
+              <i class="headframe" style="z-index: 0"></i>
             </span>
           </span>
         </div>
@@ -78,15 +78,19 @@ export default {
   data() {
     return {
       userIndexVO: {},
-    }
+    };
   },
 
   created() {
-    this.fetchUserData()
+    this.fetchUserData();
   },
 
   methods: {
-    fetchUserData() {},
+    fetchUserData() {
+      this.$axios.$get("/api/core/userInfo/auth/getUserIndex").then((r) => {
+        this.userIndexVO = r.data.item;
+      });
+    },
   },
-}
+};
 </script>
