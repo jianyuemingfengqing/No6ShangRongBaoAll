@@ -209,7 +209,7 @@
 export default {
   data() {
     return {
-      uploadUrl: "http://192.168.1.170/api/oss/upload", //上传文件的接口地址
+      uploadUrl: "http://192.168.176.128/api/oss/upload", //上传文件的接口地址
       contactsRelationList: [], //联系人关系列表
       incomeList: [], //收入列表
       industryList: [], //行业列表
@@ -220,7 +220,9 @@ export default {
         attachs: [],
       }, //借款人
       submitBtnDisabled: false,
+		    // 表单进来后不显示
       active: undefined,
+      // active: 0,
       borrowerStatus: 0,
     };
   },
@@ -328,13 +330,13 @@ export default {
       });
     },
     save() {
-      this.submitBtnDisabled = true;
+      this.submitBtnDisabled = true; // 禁止重复提交, 取消按钮使用
       // console.log(this.borrower);
       this.$axios
         .$post("/api/core/borrower/auth/commitBorrower", this.borrower)
         .then((r) => {
           this.$message.success("个人基本信息提交成功");
-          this.active = 1;
+          this.active = 1; // 提交成功后 切换页面
         });
     },
   },
