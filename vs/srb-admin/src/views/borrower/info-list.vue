@@ -145,7 +145,7 @@ export default {
         status: 2,
         serviceRate: 5,
       }
-      console.log(row)
+      // console.log(row)
       this.borrowInfoApproval.borrowId = row.id //将要审批的借款信息的id绑定 后端更新审批状态时需要使用
       this.borrowInfoApproval.lendYearRate = Number(
         row.borrowYearRate.replace('%', '')

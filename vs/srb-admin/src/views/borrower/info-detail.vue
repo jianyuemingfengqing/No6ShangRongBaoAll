@@ -87,32 +87,33 @@
   </div>
 </template>
 <script>
-import borrowerApi from '@/api/borrower'
-import '@/styles/show.css'
-export default {
-  data() {
-    return {
-      borrowInfoDetail: {
-        borrowInfo: {},
-        borrower: {},
+  import borrowerApi from '@/api/borrower'
+  import '@/styles/show.css'
+
+  export default {
+    data() {
+      return {
+        borrowInfoDetail: {
+          borrowInfo: {},
+          borrower: {},
+        },
+      }
+    },
+    created() {
+      this.getBorrowInfo()
+    },
+    methods: {
+      getBorrowInfo() {
+        borrowerApi.getBorrowInfo(this.$route.params.id).then((r) => {
+          console.log(r)
+          this.borrowInfoDetail.borrowInfo = r.data.borrowInfoVO
+          this.borrowInfoDetail.borrower = r.data.borrowerDetailVO
+          console.log(this.borrowInfoDetail)
+        })
       },
-    }
-  },
-  created() {
-    this.getBorrowInfo()
-  },
-  methods: {
-    getBorrowInfo() {
-      borrowerApi.getBorrowInfo(this.$route.params.id).then((r) => {
-        console.log(r)
-        this.borrowInfoDetail.borrowInfo = r.data.borrowInfoVO
-        this.borrowInfoDetail.borrower = r.data.borrowerDetailVO
-        console.log(this.borrowInfoDetail)
-      })
+      back() {
+        this.$router.push('/borrower/info-list')
+      },
     },
-    back() {
-      this.$router.push('/borrower/info-list')
-    },
-  },
-}
+  }
 </script>

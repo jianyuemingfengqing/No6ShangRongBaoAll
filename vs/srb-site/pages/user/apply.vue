@@ -176,25 +176,38 @@ export default {
     save() {
       //提交借款申请
       // console.log(this.borrowInfo);
-      let token = localStorage.getItem("SRB-TOKEN");
-      this.$axios({
-        url: "/api/core/borrowInfo/auth/commitBorrow",
-        data: this.borrowInfo,
-        headers: { token },
-      }).then((r) => {
-        this.$message.success(r.data.message);
-        this.active = 1;
-      });
+      /*      let token = localStorage.getItem("SRB-TOKEN");
+																this.$axios({
+																	url: "/api/core/borrowInfo/auth/commitBorrow",
+																	data: this.borrowInfo,
+																	headers: { token },
+																}).then((r) => {
+																	this.$message.success(r.data.message);
+																	this.active = 1;
+																});*/
+      //提交借款申请
+      // console.log(this.borrowInfo);
+      this.$axios
+        .$post("/api/core/borrowInfo/auth/commitBorrow", this.borrowInfo)
+        .then((r) => {
+          this.$message.success(r.message);
+          this.active = 1;
+        });
     },
     getBorrowAmount() {
-      let token = localStorage.getItem("SRB-TOKEN");
-      this.$axios({
-        url: "/api/core/borrowInfo/auth/borrowAmount",
-        headers: { token },
-      }).then((r) => {
-        this.borrowAmount = r.data.data.borrowAmount;
+      this.$axios.$get("/api/core/borrowInfo/auth/borrowAmount").then((r) => {
+        this.borrowAmount = r.data.borrowAmount;
       });
     },
+    /*    getBorrowAmount() {
+									let token = localStorage.getItem("SRB-TOKEN");
+									this.$axios({
+										url: "/api/core/borrowInfo/auth/borrowAmount",
+										headers: { token },
+									}).then((r) => {
+										this.borrowAmount = r.data.data.borrowAmount;
+									});
+								},*/
   },
 };
 </script>
