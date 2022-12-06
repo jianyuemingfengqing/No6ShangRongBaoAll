@@ -63,8 +63,8 @@
           </el-form-item>
           <el-form-item>
             <el-button
-              type="primary"
               :disabled="submitBtnDisabled"
+              type="primary"
               @click="save"
             >
               提交
@@ -72,20 +72,20 @@
           </el-form-item>
         </el-form>
         <el-alert
+          :closable="false"
           title="您提供的任何信息尚融宝都承诺予以保护，不会挪作他用。"
           type="warning"
-          :closable="false"
         >
         </el-alert>
       </div>
 
       <div v-if="active === 1">
-        <div style="margin-top:40px;">
+        <div style="margin-top: 40px">
           <el-alert
+            :closable="false"
+            show-icon
             title="您的借款申请已成功提交，请耐心等待"
             type="warning"
-            show-icon
-            :closable="false"
           >
             我们将在10分钟内完成审核，审核时间为周一至周五8:00至20:00。
           </el-alert>
@@ -93,22 +93,22 @@
       </div>
 
       <div v-if="active === 2">
-        <div style="margin-top:40px;">
+        <div style="margin-top: 40px">
           <el-alert
             v-if="borrowInfoStatus === 2"
+            :closable="false"
+            show-icon
             title="您的借款申请审批已通过"
             type="success"
-            show-icon
-            :closable="false"
           >
           </el-alert>
 
           <el-alert
             v-if="borrowInfoStatus === -1"
+            :closable="false"
+            show-icon
             title="您的借款申请审批未通过"
             type="error"
-            show-icon
-            :closable="false"
           >
           </el-alert>
         </div>
@@ -119,19 +119,82 @@
 
 <script>
 export default {
+  watch: {
+    "borrowInfo.amount"(val) {
+      // console.log(val);
+      if (val > this.borrowAmount) {
+        //如果用户输入的val值超过允许借款的最大额度 给用户提示并设置 borrowInfo.amount为最高借款额度
+        this.$message.warning("借款金额超过允许的借款额度");
+        this.borrowInfo.amount = this.borrowAmount;
+      }
+    },
+  },
   data() {
     return {
-      active: 0, //步骤
+      active: null, //步骤
       borrowInfoStatus: null, //审批状态
       //借款申请
       borrowInfo: {
-        borrowYearRate: '12',
+        borrowYearRate: "12",
       },
       borrowAmount: 0, //借款额度
       submitBtnDisabled: false,
       returnMethodList: [], //还款方式列表
       moneyUseList: [], //资金用途列表
-    }
+    };
   },
-}
+  created() {
+    this.getStatus();
+  },
+  methods: {
+    //查询借款申请状态
+    getStatus() {
+      this.$axios.$get("/api/core/borrowInfo/auth/status").then((r) => {
+        // this.$message.success(r.message);
+        //状态值为0，显示第一步 ， 状态值为1 显示第二步  状态值为2/-1 显示第三步
+        let status = r.data.status;
+        if (status === 0) {
+          this.active = 0;
+          this.getBorrowAmount();
+          this.$axios
+            .$get("/api/core/dict/getDictsByDictCode/returnMethod")
+            .then((r) => {
+              this.returnMethodList = r.data.items;
+            });
+          this.$axios
+            .$get("/api/core/dict/getDictsByDictCode/moneyUse")
+            .then((r) => {
+              this.moneyUseList = r.data.items;
+            });
+        } else if (status === 1) {
+          this.active = 1;
+        } else if (status === 2 || statuts === -1) {
+          this.active = 2;
+        }
+      });
+    },
+    save() {
+      //提交借款申请
+      // console.log(this.borrowInfo);
+      let token = localStorage.getItem("SRB-TOKEN");
+      this.$axios({
+        url: "/api/core/borrowInfo/auth/commitBorrow",
+        data: this.borrowInfo,
+        headers: { token },
+      }).then((r) => {
+        this.$message.success(r.data.message);
+        this.active = 1;
+      });
+    },
+    getBorrowAmount() {
+      let token = localStorage.getItem("SRB-TOKEN");
+      this.$axios({
+        url: "/api/core/borrowInfo/auth/borrowAmount",
+        headers: { token },
+      }).then((r) => {
+        this.borrowAmount = r.data.data.borrowAmount;
+      });
+    },
+  },
+};
 </script>
