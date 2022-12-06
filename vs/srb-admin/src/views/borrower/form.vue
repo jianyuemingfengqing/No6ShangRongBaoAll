@@ -145,12 +145,13 @@
 </template>
 <script>
 import borrowerApi from '@/api/borrower'
+
 export default {
   data() {
     return {
       flag: false,
       approvalForm: {
-        status: 2,
+        status: 2, // 默认通过
       }, //审批对象
       borrower: {},
     }
